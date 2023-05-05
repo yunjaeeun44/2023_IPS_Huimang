@@ -11,8 +11,10 @@ if (envFound.error) {
 }
 const {
     PORT,
+    OPENAI_API_KEY,
 } = process.env;
 
 export default {
     port: PORT,
+    openai_api_key: OPENAI_API_KEY,
 };

@@ -1,1 +1,1 @@
-//export { default as userController } from "./userController.js";
+export { default as chatController } from "./chatController.js";

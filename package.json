@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "hui-mang_Server",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node src",
+    "dev": "nodemon --watch src/ src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -10,24 +10,19 @@ const recordSchema = mongoose.Schema({
         type: Date,
     },
     // 하루치 사용자 말 내용 배열
-    content_u: {
+    content: {
         type: Array,
     },
-    // 하루치 사용자 말 내용 기반 긍정 수치
-    emotion_p: {
-        type: String,
-        default: 0,
-    },
     // 하루치 사용자 말 내용 기반 부정 수치
-    emotion_n: {
+    negative: {
         type: Number,
         default: 0,
     },
-    // 연락 여부
-    is_contact: {
-        type: Boolean,
-        default: false,
-    }
+    // 하루치 사용자 말 내용 기반 긍정 수치
+    positive: {
+        type: Number,
+        default: 0,
+    },
 })
 
 const Record = mongoose.model('Record', recordSchema)

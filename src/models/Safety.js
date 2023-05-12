@@ -15,11 +15,6 @@ const safetySchema = mongoose.Schema({
         default: 0,
         max: 3,
     },
-    // 연락 여부
-    is_contact: {
-        type: Boolean,
-        default: false
-    }
 })
 
 const Safety = mongoose.model('User', safetySchema)

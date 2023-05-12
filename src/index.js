@@ -6,6 +6,8 @@ import routes from './routes/index.js';
 import config from './config/index.js';
 import cors from 'cors';
 
+const mongoose = require("mongoose");
+
 const app = express()
 
 let corsOptions = {
@@ -23,10 +25,16 @@ app.get("/", (req, res, next) => {
     res.send('Hello World!');
 });
 
+mongoose
+    .connect(config.mongoURI, {})
+    .then(() => console.log("MongoDB Connected..."))
+    .catch((err) => console.log(err))
+mongoose.set("strictQuery", false)
+
 app.listen(config.port, () => {
     console.log(`
     ################################################
-            🛡️  Server listening on port 🛡️
+            🛡️  Server listening on ${config.port}🛡️
     ################################################
     `);
 });

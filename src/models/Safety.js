@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // 안부 확인 알림의 사용자 응답 여부 저장
 const safetySchema = mongoose.Schema({
@@ -19,4 +19,4 @@ const safetySchema = mongoose.Schema({
 
 const Safety = mongoose.model('User', safetySchema)
 
-module.exports = { Safety }
+export default Safety;

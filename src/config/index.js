@@ -11,10 +11,12 @@ if (envFound.error) {
 }
 const {
     PORT,
-    MONGO_URI
+    MONGO_URI,
+    JWT_SECRET_KEY,
 } = process.env;
 
 export default {
     port: PORT,
     mongoURI: MONGO_URI,
+    jwtSecret: JWT_SECRET_KEY,
 };

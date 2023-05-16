@@ -9,13 +9,21 @@ import jwt from 'jsonwebtoken';
  */
 const signup = async (req, res) =>{
     try{
-        const { name, tel, nok_tel } = req.body;
+        const { name, tel, nok_tel, tel_auth, nok_tel_auth } = req.body;
         //빈칸이 있다면
         if(!name || !tel || !nok_tel){
             return res.status(sc.BAD_REQUEST).json({
-            status: sc.BAD_REQUEST,
-            success: false,
-            message: '빈칸 존재',
+                status: sc.BAD_REQUEST,
+                success: false,
+                message: '빈칸 존재',
+            });
+        }
+        //전화번호가 인증되었는지 확인
+        if(tel_auth != true ||  nok_tel_auth !=true){
+            return res.status(sc.UNAUTHORIZED).json({
+                status: sc.UNAUTHORIZED,
+                success: false,
+                message: '인증되지 않은 전화번호',
             });
         }
 
@@ -81,8 +89,8 @@ const login = async (req, res) =>{
                     tel: tel},
             });
         }else{
-            return res.status(sc.NOT_FOUND).json({
-                status: sc.NOT_FOUND,
+            return res.status(sc.BAD_REQUEST).json({
+                status: sc.BAD_REQUEST,
                 success: false,
                 message: "로그인 실패. 틀린 입력",
             });
@@ -114,10 +122,44 @@ const sendsms = async (req, res) =>{
                 data: sendSMS,
             });
         }else{
-            return res.status(sc.NOT_FOUND).json({
-                status: sc.NOT_FOUND,
+            return res.status(sc.BAD_REQUEST).json({
+                status: sc.BAD_REQUEST,
                 success: false,
                 message: "메세지 전송 실패",
+            });
+        }
+    }catch(error){
+        console.log(error);
+        res.status(sc.INTERNAL_SERVER_ERROR).json({
+            status: sc.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: '서버 오류',
+        });
+    }
+};
+
+/**
+ *  @route POST /auth/sms/check
+ *  @desc check auth code
+ *  @access Private
+ */
+const checkAuthCode = async (req, res) =>{
+    try{
+        const { tel, code } = req.body;
+        const  checkAuthCode = await authService.checkAuthCode(tel, code); 
+        if (checkAuthCode) {
+            return res.status(sc.OK).json({
+                status: sc.OK,
+                success: true,
+                message: "인증번호 확인 성공",
+                data: checkAuthCode,
+            });
+        }else{
+            return res.status(sc.BAD_REQUEST).json({
+                status: sc.BAD_REQUEST,
+                success: false,
+                message: "인증번호 확인 실패",
+                data: false,
             });
         }
     }catch(error){
@@ -134,4 +176,5 @@ export default {
     signup,
     login,
     sendsms,
+    checkAuthCode,
 };

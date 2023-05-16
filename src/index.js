@@ -3,6 +3,7 @@ const require = createRequire(import.meta.url); //import와 require 동시에 �
 
 import express from "express";
 import cookieParser from "cookie-parser";
+import redisCli from "./modules/redis.js";
 import routes from './routes/index.js';
 import config from './config/index.js';
 import cors from 'cors';
@@ -34,7 +35,7 @@ mongoose
     })
     .then(() => console.log("MongoDB Connected..."))
     .catch((err) => console.log(err))
-mongoose.set("strictQuery", false)
+mongoose.set("strictQuery", false);
 
 app.listen(config.port, () => {
     console.log(`

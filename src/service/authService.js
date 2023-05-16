@@ -1,7 +1,7 @@
 import config from '../config/index.js';
 import User from "../models/User.js";
 import getToken from "../modules/getToken.js";
-import {create4DigitCode, saveAuthCode, sendMessage}  from '../modules/smsAuth.js';
+import {create4DigitCode, saveAuthCode, sendMessage, compareAuthCode}  from '../modules/smsAuth.js';
 
 const signup = async (name, tel, nok_tel) =>{
     try{
@@ -10,7 +10,6 @@ const signup = async (name, tel, nok_tel) =>{
         if (checkUser){ 
             return null;
         }else{
-            //전화번호 인증
             const user = new User({name, tel, nok_tel});
             user.save();
             return user;
@@ -46,7 +45,7 @@ const sendSMS = async (tel) =>{
     try{
         const code = create4DigitCode();
         //레디스에 저장
-        //await saveAuthCode(tel, code);
+        await saveAuthCode(tel, code);
         //문자 발송
         const response = await sendMessage(tel, code);
         if (response){ //문자 전송 성공
@@ -59,8 +58,25 @@ const sendSMS = async (tel) =>{
     }
 };
 
+const checkAuthCode = async (tel, code) =>{
+    try{
+        const checkCode = await compareAuthCode(tel, code);
+        if (checkCode){
+            const data = {tel: tel, auth: true}
+            return data;
+        }else{
+            return null;
+        }
+    }catch(error){
+        throw error;
+    }
+};
+
+
+
 export default {
     signup,
     login,
     sendSMS,
+    checkAuthCode,
 };

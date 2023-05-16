@@ -1,15 +1,28 @@
 import redis from 'redis';
 import CryptoJS from 'crypto-js';
 import fetch from 'node-fetch';
+import redisCli from './redis.js';
 import config from '../config/index.js';
 
 const create4DigitCode = () => {
     const code = Math.floor(Math.random() * 9000) + 1000;
-    return code;
+    return code.toString();
 };
 
-const saveAuthCode = async () => {
+const saveAuthCode = async (tel, code) => {
+    await redisCli.set(tel, code, { EX: 180});
+};
 
+const compareAuthCode = async (tel, code) => {
+    const result = await redisCli.get(tel);
+    console.log("redis", result, "code", code);
+
+    if (code == result) {
+        await redisCli.del(tel);
+        return true;
+    } else {
+        return false;
+    }
 };
 
 const sendMessage = async (tel, code) => {
@@ -38,7 +51,7 @@ const sendMessage = async (tel, code) => {
             type: "SMS",
             countryCode: "82",
             from: config.phoneNumber,
-            content: code,
+            content: `인증번호: ${code}`,
             messages: [{to: tel}],
         });
 
@@ -70,5 +83,6 @@ const sendMessage = async (tel, code) => {
 export {
     create4DigitCode,
     saveAuthCode,
+    compareAuthCode,
     sendMessage,
 };

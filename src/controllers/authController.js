@@ -59,15 +59,6 @@ const signup = async (req, res) =>{
  */
 const login = async (req, res) =>{
     try{
-        //reqest에 이미 쿠키가 있는 경우 -> 이미 로그인한 경우
-        if (req.cookies.x_auth){
-            return res.status(sc.BAD_REQUEST).json({
-            status: sc.BAD_REQUEST,
-            success: false,
-            message: '이미 로그인 상태(토큰 이미 존재)',
-            });
-        }
-
         const { name, tel } = req.body;
         //빈칸이 있다면
         if(!name || !tel){

@@ -97,7 +97,41 @@ const login = async (req, res) =>{
     }
 };
 
+/**
+ *  @route POST /auth/sendsms
+ *  @desc send SMS
+ *  @access Private
+ */
+const sendsms = async (req, res) =>{
+    try{
+        const { tel } = req.body;
+        const  sendSMS = await authService.sendSMS(tel); 
+        if (sendSMS) {
+            return res.status(sc.OK).json({
+                status: sc.OK,
+                success: true,
+                message: "메세지 전송 성공",
+                data: sendSMS,
+            });
+        }else{
+            return res.status(sc.NOT_FOUND).json({
+                status: sc.NOT_FOUND,
+                success: false,
+                message: "메세지 전송 실패",
+            });
+        }
+    }catch(error){
+        console.log(error);
+        res.status(sc.INTERNAL_SERVER_ERROR).json({
+            status: sc.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: '서버 오류',
+        });
+    }
+};
+
 export default {
     signup,
     login,
+    sendsms,
 };

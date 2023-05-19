@@ -1,32 +1,8 @@
-import redis from 'redis';
 import CryptoJS from 'crypto-js';
 import fetch from 'node-fetch';
-import redisCli from './redis.js';
 import config from '../config/index.js';
 
-const create4DigitCode = () => {
-    const code = Math.floor(Math.random() * 9000) + 1000;
-    return code.toString();
-};
-
-const saveAuthCode = async (tel, code) => {
-    await redisCli.set(tel, code, { EX: 180});
-};
-
-const compareAuthCode = async (tel, code) => {
-    const result = await redisCli.get(tel);
-    console.log("redis", result, "code", code);
-
-    if (code == result) {
-        await redisCli.del(tel);
-        return true;
-    } else {
-        return false;
-    }
-};
-
-
-const sendMessageWithAuth = async (tel, code) => {
+const sendMessage = async (tel, content) => {
     try{
         const timestamp = Date.now().toString();
         const method = "POST";
@@ -49,10 +25,10 @@ const sendMessageWithAuth = async (tel, code) => {
         const signature = hash.toString(CryptoJS.enc.Base64);
 
         const body = JSON.stringify({ //json 문자열로 변환
-            type: "SMS",
+            type: "LMS",
             countryCode: "82",
             from: config.phoneNumber,
-            content: `인증번호: ${code}`,
+            content: content,
             messages: [{to: tel}],
         });
 
@@ -81,9 +57,4 @@ const sendMessageWithAuth = async (tel, code) => {
     }
 }
 
-export {
-    create4DigitCode,
-    saveAuthCode,
-    compareAuthCode,
-    sendMessageWithAuth,
-};
+export default sendMessage;

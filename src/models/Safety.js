@@ -7,7 +7,7 @@ const safetySchema = mongoose.Schema({
         ref: 'User'
     },
     date: {
-        type: Date,
+        type: String,
     },
     // 응답 횟수 0~3
     resNum: {

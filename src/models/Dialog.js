@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 
-// 대화 한 번의 기록 저장
+// chatGPT와의 대화를 위한 대화 기록 저장.
 const dialogSchema = mongoose.Schema({
-    user_id: {
-        type: mongoose.Types.ObjectId,
+    tel: {
+        type: String,
+        required: true,
+        trim: true,
         ref: 'User'
-    },
-    date: {
-        type: Date,
     },
     history: {
         type: Array,

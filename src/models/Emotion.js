@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // 하루 동안의 사용자 말 내용 및 감정 저장
 const recordSchema = mongoose.Schema({
@@ -27,4 +27,4 @@ const recordSchema = mongoose.Schema({
 
 const Record = mongoose.model('Record', recordSchema)
 
-module.exports = { Record }
+export default Record;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // 대화 한 번의 기록 저장
 const dialogSchema = mongoose.Schema({
@@ -16,4 +16,4 @@ const dialogSchema = mongoose.Schema({
 
 const Dialog = mongoose.model('Dialog', dialogSchema)
 
-module.exports = { Dialog }
+export default Dialog;

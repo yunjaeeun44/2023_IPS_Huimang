@@ -2,16 +2,20 @@ import mongoose from 'mongoose';
 
 // 하루 동안의 사용자 말 내용 및 감정 저장
 const recordSchema = mongoose.Schema({
-    user_id: {
-        type: mongoose.Types.ObjectId,
+    tel: {
+        type: String,
+        required: true,
+        trim: true,
         ref: 'User'
     },
+    //대화 날짜
     date: {
-        type: Date,
+        type: String,
+        required: true,
     },
     // 하루치 사용자 말 내용 배열
     content: {
-        type: Array,
+        type: String,
     },
     // 하루치 사용자 말 내용 기반 부정 수치
     negative: {

@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     },
     tel: {
         type: String,
-        trim: true,
+        trim: true, //자동으로 앞 뒤 공백을 없애줌
         unique: 1,
         required: true
     },

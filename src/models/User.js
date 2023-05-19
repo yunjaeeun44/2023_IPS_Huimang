@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        maxlength: 50
+        maxlength: 50,
+        required: true,
     },
     tel: {
         type: String,
-        trim: true,
+        trim: true, //자동으로 앞 뒤 공백을 없애줌
         unique: 1,
         required: true
     },
@@ -27,4 +28,4 @@ const userSchema = mongoose.Schema({
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = { User }
+export default User;

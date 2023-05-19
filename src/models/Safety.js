@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // 안부 확인 알림의 사용자 응답 여부 저장
 const safetySchema = mongoose.Schema({
@@ -7,7 +7,7 @@ const safetySchema = mongoose.Schema({
         ref: 'User'
     },
     date: {
-        type: Date,
+        type: String,
     },
     // 응답 횟수 0~3
     resNum: {
@@ -15,13 +15,8 @@ const safetySchema = mongoose.Schema({
         default: 0,
         max: 3,
     },
-    // 연락 여부
-    is_contact: {
-        type: Boolean,
-        default: false
-    }
 })
 
 const Safety = mongoose.model('User', safetySchema)
 
-module.exports = { Safety }
+export default Safety;

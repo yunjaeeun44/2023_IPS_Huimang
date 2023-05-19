@@ -2,7 +2,7 @@ import config from '../config/index.js';
 import { Configuration, OpenAIApi } from 'openai';
 import Dialog from "../models/Dialog.js";
 import Record from '../models/Record.js';
-import dateFormat from '../modules/dateFormat.js';
+import { dateFormat } from '../modules/dateFormat.js';
 
 const initChatGPT = async () =>{
     try {
@@ -72,7 +72,6 @@ const chatGPT = async (data) => {
             });
             userRecord.save();
         }
-
         return completion_text;
     }catch(error){
         throw error;

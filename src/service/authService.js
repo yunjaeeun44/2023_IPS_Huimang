@@ -1,7 +1,7 @@
 import config from '../config/index.js';
 import User from "../models/User.js";
 import getToken from "../modules/getToken.js";
-import {create4DigitCode, saveAuthCode, sendMessage, compareAuthCode}  from '../modules/smsAuth.js';
+import {create4DigitCode, saveAuthCode, sendMessageWithAuth, compareAuthCode}  from '../modules/smsAuth.js';
 
 const signup = async (name, tel, nok_tel) =>{
     try{
@@ -47,7 +47,7 @@ const sendSMS = async (tel) =>{
         //레디스에 저장
         await saveAuthCode(tel, code);
         //문자 발송
-        const response = await sendMessage(tel, code);
+        const response = await sendMessageWithAuth(tel, code);
         if (response){ //문자 전송 성공
             return true;
         }else{ //문자 전송 실패

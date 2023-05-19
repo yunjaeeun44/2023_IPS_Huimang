@@ -39,7 +39,6 @@ mongoose
     .catch((err) => console.log(err))
 mongoose.set("strictQuery", false);
 
-
 scheduleJob('0 0 0 * * *', function () {
     console.log('매일 0시 0분 0초');
 })

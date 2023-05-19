@@ -4,10 +4,14 @@ import mongoose from 'mongoose';
 const recordSchema = mongoose.Schema({
     tel: {
         type: String,
+        required: true,
         trim: true,
+        ref: 'User'
     },
+    //대화 날짜
     date: {
         type: String,
+        required: true,
     },
     // 하루치 사용자 말 내용 배열
     content: {

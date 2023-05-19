@@ -1,6 +1,6 @@
 import sc from '../modules/statusCode.js';
 import { alarmService } from '../service/index.js';
-import dateFormat from '../modules/dateformat.js';
+import { dateFormat } from '../modules/dateformat.js';
 
 const getAlarm = async (req, res, next) => {
     try {

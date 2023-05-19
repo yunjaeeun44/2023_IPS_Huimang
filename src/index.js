@@ -8,6 +8,8 @@ import routes from './routes/index.js';
 import config from './config/index.js';
 import cors from 'cors';
 
+import { scheduleJob } from "node-schedule";
+
 const mongoose = require("mongoose");
 
 const app = express()
@@ -36,6 +38,10 @@ mongoose
     .then(() => console.log("MongoDB Connected..."))
     .catch((err) => console.log(err))
 mongoose.set("strictQuery", false);
+
+scheduleJob('0 0 0 * * *', function () {
+    console.log('매일 0시 0분 0초');
+})
 
 app.listen(config.port, () => {
     console.log(`

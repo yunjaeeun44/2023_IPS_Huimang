@@ -18,6 +18,7 @@ const initChatGPT = async () =>{
 
 const openai = await initChatGPT(); //맨 처음 채팅을 시작할 때 실행
 
+
 const chatGPT = async (data) => {
     try{
         const user_tel = data.user.tel;

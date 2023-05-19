@@ -1,37 +1,48 @@
 import axios from 'axios';
-// import analyService from '../service/analyService';
 import { analyService } from '../service/index.js';
+import sc from '../modules/statusCode.js';
+import dateFormat from '../modules/dateformat.js';
 
 const postSentence = async (req, res, next) => {
     try {
-        const { date, sentence } = req.body;
+        const { user, sentence } = req.body;
         const response = await axios.post('http://127.0.0.1:5000/analy', {
             sentence: sentence
         });
-        // res.status(201).json({
-        //     result: 'successPost',
-        //     negative: response.data.negative_data,
-        //     positive: response.data.positive_data,
-        //     prediction: response.data.prediction,
-        //     sentence: response.data.sentence,
-        // });
 
-        const saveRecord = await analyService.saveRecord(date, response.data.sentence, response.data.negative_data, response.data.positive_data)
+        const negative = new Number(response.data.negative_data.substr(3));
+        const positive = new Number(response.data.positive_data.substr(3));
+
+
+        const saveRecord = await analyService.saveRecord(user.tel, dateFormat(), response.data.sentence, negative, positive);
+        console.log(saveRecord)
         if (saveRecord) {
-            res.status(201).json({
-                status: 201,
+            return res.status(sc.CREATED).json({
+                status: sc.CREATED,
                 success: true,
-                negative: response.data.negative_data,
-                positive: response.data.positive_data,
-                prediction: response.data.prediction,
-                sentence: response.data.sentence,
+                data: {
+                    user_tel: user.tel,
+                    date: dateFormat(),
+                    content: response.data.sentence,
+                    negative: negative,
+                    positive: positive,
+                },
+                message: "데이터 저장 성공"
             });
         }
         else {
-            console.log('데이터 저장 오류');
+            return res.status(sc.BAD_REQUEST).json({
+                status: sc.BAD_REQUEST,
+                success: false,
+                message: "데이터 입력 오류"
+            });
         }
     } catch (error) {
-        console.log(error);
+        return res.status(sc.INTERNAL_SERVER_ERROR).json({
+            status: sc.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: "서버 오류"
+        })
     }
 }
 

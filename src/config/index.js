@@ -12,6 +12,7 @@ if (envFound.error) {
 
 const {
     PORT,
+    OPENAI_API_KEY,
     MONGO_URI,
     JWT_SECRET_KEY,
     PHONE_NUMBER,
@@ -22,6 +23,7 @@ const {
 
 export default {
     port: PORT,
+    openai_api_key: OPENAI_API_KEY,
     mongoURI: MONGO_URI,
     jwtSecret: JWT_SECRET_KEY,
     phoneNumber: PHONE_NUMBER,

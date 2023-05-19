@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import authRouter from './authRouter.js';
-
-const router = Router();
+import chatRouter from './chatRouter.js';
 
 router.use('/auth', authRouter);
+router.use('/chat', chatRouter);
 
 export default router;

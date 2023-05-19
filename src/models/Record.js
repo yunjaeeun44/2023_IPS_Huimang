@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // 하루 동안의 사용자 말 내용 및 감정 저장
 const recordSchema = mongoose.Schema({
-    user_tel: {
+    tel: {
         type: String,
         trim: true,
     },

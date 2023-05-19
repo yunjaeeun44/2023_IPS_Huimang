@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import analyService from '../service/analyService';
 import { analyService } from '../service/index.js';
 import sc from '../modules/statusCode.js';
 import dateFormat from '../modules/dateformat.js';
@@ -32,10 +31,18 @@ const postSentence = async (req, res, next) => {
             });
         }
         else {
-            console.log('데이터 저장 오류');
+            return res.status(sc.BAD_REQUEST).json({
+                status: sc.BAD_REQUEST,
+                success: false,
+                message: "데이터 입력 오류"
+            });
         }
     } catch (error) {
-        console.log(error);
+        return res.status(sc.INTERNAL_SERVER_ERROR).json({
+            status: sc.INTERNAL_SERVER_ERROR,
+            success: false,
+            message: "서버 오류"
+        })
     }
 }
 

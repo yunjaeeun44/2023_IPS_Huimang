@@ -15,7 +15,6 @@ const userSchema = mongoose.Schema({
     nok_tel: {
         type: String,
         trim: true,
-        unique: 1,
         required: true
     },
     token: {

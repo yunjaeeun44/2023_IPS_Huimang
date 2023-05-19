@@ -1,9 +1,7 @@
 import { Router } from 'express';
-import authRouter from './authRouter.js';
 import chatRouter from './chatRouter.js';
 import messageRouter from './messageRouter.js';
 import analyRouter from './analyRouter.js';
-import chatRouter from './chatRouter.js';
 import authRouter from './authRouter.js';
 import alarmRouter from './alarmRouter.js';
 

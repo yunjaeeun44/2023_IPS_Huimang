@@ -1,5 +1,5 @@
 import Record from "../models/Record.js";
-import { dateFormat } from "./dateformat.js";
+import { dateFormat } from "./dateFormat.js";
 import axios from "axios";
 
 const analyEmotion = async () => {

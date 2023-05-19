@@ -4,6 +4,6 @@ import auth from '../middleware/auth.js'
 
 const router = Router();
 
-router.post('', auth, messageController.checkMessageAlarm);
+router.get('', auth, messageController.checkMessageAlarm);
 
 export default router;

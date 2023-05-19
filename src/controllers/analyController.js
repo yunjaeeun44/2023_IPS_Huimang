@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { analyService } from '../service/index.js';
 import sc from '../modules/statusCode.js';
-import { dateFormat } from '../modules/dateformat.js';
+import { dateFormat } from '../modules/dateFormat.js';
 
 const postSentence = async (req, res, next) => {
     try {
